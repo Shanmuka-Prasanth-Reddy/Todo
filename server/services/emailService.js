@@ -18,7 +18,7 @@ transporter.verify(function(error, success) {
   }
 });
 
-const sendDeadlineReminder = async (email, todo) => {
+const sendDeadlineReminder = async (email, todo, customMessage = '') => {
   console.log('Attempting to send email with config:', {
     from: process.env.EMAIL_USER,
     to: email,
@@ -34,6 +34,7 @@ const sendDeadlineReminder = async (email, todo) => {
       <p>Your task "${todo.title}" is due soon!</p>
       <p><strong>Deadline:</strong> ${new Date(todo.deadline).toLocaleString()}</p>
       <p><strong>Priority:</strong> ${todo.priority}</p>
+      ${customMessage ? `<p><strong>Message:</strong> ${customMessage}</p>` : ''}
       <p>Please make sure to complete this task before the deadline.</p>
     `
   };

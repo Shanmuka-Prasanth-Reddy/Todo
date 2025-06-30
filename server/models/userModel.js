@@ -16,7 +16,16 @@ const userSchema = new mongoose.Schema({
     reminderTime: {
       type: Number,
       default: 12 // hours before deadline
+    },
+    customMessage: {
+      type: String,
+      default: ''
     }
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
   }
 }, { timestamps: true });
 

@@ -15,6 +15,7 @@ const checkDeadlines = async () => {
       
       console.log(`Looking for todos due before: ${reminderThreshold}`);
       const upcomingTodos = await Todo.find({
+        user: user._id,
         deadline: { $lte: reminderThreshold, $gt: new Date() },
         completed: false
       });
@@ -22,7 +23,7 @@ const checkDeadlines = async () => {
 
       for (const todo of upcomingTodos) {
         console.log(`Sending reminder for todo: ${todo.title}`);
-        await sendDeadlineReminder(user.email, todo);
+        await sendDeadlineReminder(user.email, todo, user.notificationPreferences.customMessage);
       }
     }
   } catch (error) {
